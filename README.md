@@ -60,7 +60,7 @@ python main.py --list     # print the last 10 stored jobs and exit (no network c
 Run once a day, e.g. at 9am, and log output for troubleshooting:
 
 ```cron
-0 9 * * * /home/kevinvanliebergen/miniconda3/envs/ycombinator_scrapper/bin/python3 /home/kevinvanliebergen/git/ycombinator_scrapper/main.py >> /home/kevinvanliebergen/git/ycombinator_scrapper/cron.log 2>&1
+0 9 * * * /home/user/miniconda3/envs/ycombinator_scrapper/bin/python3 /home/user/git/ycombinator_scrapper/main.py >> /home/user/git/ycombinator_scrapper/cron.log 2>&1
 ```
 
 Edit with `crontab -e`. Use absolute paths — cron's `PATH` and environment are minimal, so test
