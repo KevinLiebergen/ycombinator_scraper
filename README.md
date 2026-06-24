@@ -21,10 +21,12 @@ From the second run onward, only genuinely new job IDs trigger a notification.
 
 ## Installation
 
+A dedicated conda environment (matching job_tracker's per-project setup) is used:
+
 ```bash
 cd ycombinator_scrapper
-python3 -m venv venv          # or use a conda env, matching job_tracker's setup
-source venv/bin/activate
+conda create -n ycombinator_scrapper python=3.12 -y
+conda activate ycombinator_scrapper
 pip install -r requirements.txt
 ```
 
@@ -57,7 +59,7 @@ python main.py --list     # print the last 10 stored jobs and exit (no network c
 Run once a day, e.g. at 9am, and log output for troubleshooting:
 
 ```cron
-0 9 * * * /path/to/venv/bin/python3 /home/kevinvanliebergen/git/ycombinator_scrapper/main.py >> /home/kevinvanliebergen/git/ycombinator_scrapper/cron.log 2>&1
+0 9 * * * /home/kevinvanliebergen/miniconda3/envs/ycombinator_scrapper/bin/python3 /home/kevinvanliebergen/git/ycombinator_scrapper/main.py >> /home/kevinvanliebergen/git/ycombinator_scrapper/cron.log 2>&1
 ```
 
 Edit with `crontab -e`. Use absolute paths — cron's `PATH` and environment are minimal, so test
