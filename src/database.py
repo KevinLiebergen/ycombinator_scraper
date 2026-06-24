@@ -67,7 +67,7 @@ def get_latest_jobs(limit=10):
     c.execute("""
         SELECT id, title, link, by, posted_at, date_added
         FROM jobs
-        ORDER BY rowid DESC
+        ORDER BY posted_at DESC
         LIMIT ?
     """, (limit,))
     results = c.fetchall()
