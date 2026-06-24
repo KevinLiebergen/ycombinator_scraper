@@ -42,6 +42,7 @@ cp .env.example .env
 TELEGRAM_TOKEN=<your bot token, from @BotFather>
 TELEGRAM_CHAT_ID=<your chat id>
 DB_PATH=data/jobs.db
+TELEGRAM_MESSAGE_DELAY=3   # seconds between consecutive Telegram messages, to avoid rate limits
 ```
 
 `.env` is gitignored and never committed.
