@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from telegram import Bot
 
 from config.settings import TELEGRAM_TOKEN, TELEGRAM_CHAT_ID, TELEGRAM_MESSAGE_DELAY
+from src.job_parser import parse_job_details
 
 logger = logging.getLogger(__name__)
 
@@ -24,9 +25,14 @@ def format_job_message(job):
     posted = "N/A"
     if job.get("time"):
         posted = datetime.fromtimestamp(job["time"], tz=timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    parsed_role, parsed_location = parse_job_details(job["title"])
+    role = job.get("role") or parsed_role or "N/A"
+    location = job.get("location") or parsed_location or "N/A"
     return (
         f"🔔 *New YC/HN Job Found!*\n"
         f"💼 *Title:* {job['title']}\n"
+        f"🧑‍💻 *Role:* {role}\n"
+        f"📍 *Location:* {location}\n"
         f"👤 *Posted by:* {job.get('by') or 'N/A'}\n"
         f"🕒 *Posted at:* {posted}\n"
         f"🔗 [View posting]({job['link']})\n"

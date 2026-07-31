@@ -3,6 +3,7 @@ import logging
 from config.settings import HN_DISCUSSION_URL_TEMPLATE
 from src.hn_api import get_job_story_ids, get_item
 from src.database import has_any_jobs, job_exists, save_job
+from src.job_parser import parse_job_details
 
 logger = logging.getLogger(__name__)
 
@@ -15,11 +16,15 @@ def resolve_link(item):
 
 
 def build_job_record(item):
+    title = item.get("title") or "(untitled)"
+    role, location = parse_job_details(title)
     return {
         "id": item["id"],
-        "title": item.get("title") or "(untitled)",
+        "title": title,
         "link": resolve_link(item),
         "by": item.get("by"),
+        "role": role,
+        "location": location,
         "time": item.get("time"),
     }
 

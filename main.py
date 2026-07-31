@@ -12,8 +12,9 @@ def main(verbose=False, list_jobs=False):
     if list_jobs:
         jobs = get_latest_jobs()
         print(f"Last {len(jobs)} jobs found:\n")
-        for job_id, title, link, by, posted_at, date_added in jobs:
+        for job_id, title, link, by, role, location, posted_at, date_added in jobs:
             print(f"[{job_id}] {title}")
+            print(f"   role {role or 'N/A'} | location {location or 'N/A'}")
             print(f"   by {by} | posted {posted_at} | added {date_added}")
             print(f"   {link}\n")
         return

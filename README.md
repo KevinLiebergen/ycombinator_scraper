@@ -73,6 +73,7 @@ Lightweight manual scripts (no pytest, matching job_tracker's style):
 ```bash
 python tests/check_api_client.py     # hits the live HN API
 python tests/check_db_roundtrip.py   # exercises SQLite logic against a throwaway DB
+python tests/check_job_parser.py     # role/location parsing against known titles
 ```
 
 ## Database schema
@@ -83,7 +84,15 @@ CREATE TABLE jobs (
     title      TEXT,
     link       TEXT,
     by         TEXT,
+    role       TEXT,
+    location   TEXT,
     posted_at  TEXT,
     date_added TEXT
 )
 ```
+
+`role` and `location` are not provided by the HN API - they are parsed out of the
+title by `src/job_parser.py` (`"Acme (YC W25) Is Hiring Full Stack Engineers (SF)"`
+-> role `Full Stack Engineers`, location `SF`) and are `NULL` when the title says
+nothing useful. Databases created before these columns existed are migrated and
+backfilled automatically on the next run.
